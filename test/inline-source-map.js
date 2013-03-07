@@ -2,7 +2,7 @@
 /*jshint asi: true*/
 
 var test = require('trap').test
-var Generator = require('..');
+var generator = require('..');
 
 var foo = '' + function foo () {
   var hello = 'hello';
@@ -20,7 +20,7 @@ function decode(base64) {
 
 test('generated mappings', function (t) {
   t.test('no offset', function (t) {
-    var gen = new Generator()
+    var gen = generator()
       .addGeneratedMappings('foo.js', foo)
       .addGeneratedMappings('bar.js', bar)
 
@@ -37,7 +37,7 @@ test('generated mappings', function (t) {
   })
 
   t.test('with offset', function (t) {
-    var gen = new Generator()
+    var gen = generator()
       .addGeneratedMappings('foo.js', foo, { line: 20 })
       .addGeneratedMappings('bar.js', bar, { line: 23, column: 22 })
 
@@ -51,7 +51,7 @@ test('generated mappings', function (t) {
 
 test('given mappings', function (t) {
   t.test('no offset', function (t) {
-    var gen = new Generator()
+    var gen = generator()
       .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }])
       .addMappings('bar.js', [{ original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }])
 
@@ -68,7 +68,7 @@ test('given mappings', function (t) {
   })
 
   t.test('with offset', function (t) {
-    var gen = new Generator()
+    var gen = generator()
       .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }], { line: 5 })
       .addMappings('bar.js', [{ original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }], { line: 9, column: 3 })
 
