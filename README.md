@@ -1,6 +1,6 @@
 # inline-source-map [![build status](https://secure.travis-ci.org/thlorenz/inline-source-map.png)](http://travis-ci.org/thlorenz/inline-source-map)
 
-Add source mappings to it and convert them to base64 encoded source mappings that can be inlined into your generated file.
+Adds source mappings and base64 encodes them, so they can be inlined in your generated file.
 
 ```js
 var generator = require('inline-source-map');
