@@ -1,8 +1,7 @@
 {
   "name": "inline-source-map",
   "version": "0.1.0",
-  "description": "Adds source mappings and base64 encodes them, so they can be inlined in your generated file.
-",
+  "description": "Adds source mappings and base64 encodes them, so they can be inlined in your generated file.",
   "main": "inline-source-map.js",
   "scripts": {
     "test": "node-trap test/*.js"
