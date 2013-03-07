@@ -1,0 +1,38 @@
+{
+  "name": "inline-source-map",
+  "version": "0.0.0",
+  "description": "Add source mappings to it and convert them to base64 encoded source mappings that can be inlined into your generated file.",
+  "main": "inline-source-map.js",
+  "scripts": {
+    "test": "node-trap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thlorenz/inline-source-map.git"
+  },
+  "homepage": "https://github.com/thlorenz/inline-source-map",
+  "dependencies": {
+    "source-map": "~0.1.9"
+  },
+  "devDependencies": {
+    "trap": "~0.4.2"
+  },
+  "keywords": [
+    "source",
+    "map",
+    "inline",
+    "base64",
+    "bundle",
+    "generate",
+    "transpile"
+  ],
+  "author": {
+    "name": "Thorsten Lorenz",
+    "email": "thlorenz@gmx.de",
+    "url": "http://thlorenz.com"
+  },
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.6"
+  }
+}
