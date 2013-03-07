@@ -1,7 +1,7 @@
 'use strict';
 var SourceMapGenerator = require('source-map').SourceMapGenerator;
 
-function offsetMapping(offset, mapping) {
+function offsetMapping(mapping, offset) {
   return { line: offset.line + mapping.line, column: offset.column + mapping.column };
 }
 
@@ -17,29 +17,41 @@ function Generator(opts) {
   this.generator = new SourceMapGenerator({ file: opts.file || '', sourceRoot: opts.sourceRoot || '' });
 }
 
-Generator.prototype.addMappings = function (sourceFile, offset, mappings) { 
+Generator.prototype.addMappings = function (sourceFile, mappings, offset) { 
+  var generator = this.generator; 
+
+  offset = offset || {};
+  offset.line = offset.hasOwnProperty('line') ? offset.line : 0;
+  offset.column = offset.hasOwnProperty('column') ? offset.column : 0;
+
   mappings.forEach(function (m) {
-    this.generator.addMapping({
+    generator.addMapping({
         source    :  sourceFile
       , original  :  m.original
-      , generated :  offsetMapping(offset, m.generated)
+      , generated :  offsetMapping(m.generated, offset)
     });
   });
+  return this;
 };
 
-Generator.prototype.addGeneratedMappings = function (sourceFile, offset, source) {
+Generator.prototype.addGeneratedMappings = function (sourceFile, source, offset) {
   var mappings = [];
 
-  for (var line = 1; line <= linesIn(source); line++) 
-    mappings.push({ line: line, column: 0 });
+  for (var line = 1; line <= linesIn(source); line++) {
+    var location = { line: line, column: 0 };
+    mappings.push({ original: location, generated: location });
+  }
 
-  return this.addMapping(sourceFile, offset, mappings);
+  return this.addMappings(sourceFile, mappings, offset);
 };
 
-Generator.prototype.toString = function () {
+Generator.prototype.base64Encode = function () {
   var map = this.generator.toString();
-  var encodedMap = new Buffer(map).toString('base64');
-  return '//@ sourceMappingURL=data:application/json;base64,' + encodedMap;
+  return new Buffer(map).toString('base64');
+};
+
+Generator.prototype.inlineMappingUrl = function () {
+  return '//@ sourceMappingURL=data:application/json;base64,' + this.base64Encode();
 };
 
 module.exports = Generator;
