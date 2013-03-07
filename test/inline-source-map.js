@@ -14,8 +14,8 @@ var bar = '' + function bar () {
   console.log('yes?');
 }
 
-function decode(mapping) {
-  return new Buffer(mapping, 'base64').toString();
+function decode(base64) {
+  return new Buffer(base64, 'base64').toString();
 } 
 
 test('generated mappings', function (t) {
@@ -24,8 +24,8 @@ test('generated mappings', function (t) {
       .addGeneratedMappings('foo.js', foo)
       .addGeneratedMappings('bar.js', bar)
 
-    t.equal(
-        decode(gen.base64Encode())
+    t.deepEqual(
+        decode(gen.base64Encode()) 
       , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":"AAAA,ACAA;ADCA,ACAA;ADCA,ACAA;ADCA;AACA"}'
       , 'encodes generated mappings'
     )
@@ -35,6 +35,7 @@ test('generated mappings', function (t) {
       , 'returns correct inline mapping url'
     )
   })
+
   t.test('with offset', function (t) {
     var gen = new Generator()
       .addGeneratedMappings('foo.js', foo, { line: 20 })
@@ -43,7 +44,38 @@ test('generated mappings', function (t) {
     t.equal(
         decode(gen.base64Encode())
       , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;AAAA;AACA;AACA;AACA,sBCHA;ADIA,sBCHA;sBACA"}'
+      , 'encodes generated mappings with offset'
+    )
+  })
+})
+
+test('given mappings', function (t) {
+  t.test('no offset', function (t) {
+    var gen = new Generator()
+      .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }])
+      .addMappings('bar.js', [{ original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }])
+
+    t.deepEqual(
+        decode(gen.base64Encode()) 
+      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":";;;;UACG;;oBCIH"}'
       , 'encodes generated mappings'
+    )
+    t.equal(
+        gen.inlineMappingUrl()
+      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztVQUNHOztvQkNJSCJ9'
+      , 'returns correct inline mapping url'
+    )
+  })
+
+  t.test('with offset', function (t) {
+    var gen = new Generator()
+      .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }], { line: 5 })
+      .addMappings('bar.js', [{ original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }], { line: 9, column: 3 })
+
+    t.equal(
+        decode(gen.base64Encode())
+      , '{\"version\":3,\"file\":\"\",\"sources\":[\"foo.js\",\"bar.js\"],\"names\":[],\"mappings\":\";;;;;;;;;UACG;;;;;;uBCIH\"}'
+      , 'encodes mappings with offset'
     )
   })
 });
