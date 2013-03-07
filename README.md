@@ -20,7 +20,7 @@ inline mapping url: //@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 
 ## API
 
-### addMappings(sourceFile, mappings, offset
+### addMappings(sourceFile, mappings, offset)
 
 ```
 /**
@@ -35,7 +35,7 @@ inline mapping url: //@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
  */
 ```
 
-### addGeneratedMappings(sourceFile, source, offset
+### addGeneratedMappings(sourceFile, source, offset)
 
 ```
 /**
