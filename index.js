@@ -9,7 +9,7 @@ function linesIn(src) {
   if (!src) return 0;
   var newLines = src.match(/\n/g);
 
-  return newLines ? newLines.length + 1 : 1;
+  return newLines ? newLines.length : 0;
 }
  
 function Generator(opts) {
@@ -82,6 +82,10 @@ Generator.prototype.base64Encode = function () {
  */
 Generator.prototype.inlineMappingUrl = function () {
   return '//@ sourceMappingURL=data:application/json;base64,' + this.base64Encode();
+};
+
+Generator.prototype._mappings = function () {
+  return this.generator._mappings;
 };
 
 module.exports = function (opts) { return new Generator(opts); };
