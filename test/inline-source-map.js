@@ -19,7 +19,48 @@ function decode(base64) {
 } 
 
 test('generated mappings', function (t) {
-  t.test('no offset', function (t) {
+
+  t.test('one file no offset', function (t) {
+    var gen = generator()
+      .addGeneratedMappings('foo.js', foo)
+
+    t.deepEqual(
+        gen._mappings()
+      , [ { generated: { line: 1, column: 0 },
+            original: { line: 1, column: 0 },
+            source: 'foo.js',
+            name: null },
+          { generated: { line: 2, column: 0 },
+            original: { line: 2, column: 0 },
+            source: 'foo.js',
+            name: null },
+          { generated: { line: 3, column: 0 },
+            original: { line: 3, column: 0 },
+            source: 'foo.js',
+            name: null },
+          { generated: { line: 4, column: 0 },
+            original: { line: 4, column: 0 },
+            source: 'foo.js',
+            name: null },
+          { generated: { line: 5, column: 0 },
+            original: { line: 5, column: 0 },
+            source: 'foo.js',
+            name: null } ]      
+        , 'generates correct mappings'
+    )
+    t.deepEqual(
+        decode(gen.base64Encode()) 
+      , '{"version":3,"file":"","sources":["foo.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA"}'
+      , 'encodes generated mappings'
+    )
+    t.equal(
+        gen.inlineMappingUrl()
+      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQSJ9'
+      , 'returns correct inline mapping url'
+    )
+  })
+
+  t.test('two files no offset', function (t) {
     var gen = generator()
       .addGeneratedMappings('foo.js', foo)
       .addGeneratedMappings('bar.js', bar)
@@ -42,6 +83,10 @@ test('generated mappings', function (t) {
             original: { line: 4, column: 0 },
             source: 'foo.js',
             name: null },
+          { generated: { line: 5, column: 0 },
+            original: { line: 5, column: 0 },
+            source: 'foo.js',
+            name: null },
           { generated: { line: 1, column: 0 },
             original: { line: 1, column: 0 },
             source: 'bar.js',
@@ -49,18 +94,34 @@ test('generated mappings', function (t) {
           { generated: { line: 2, column: 0 },
             original: { line: 2, column: 0 },
             source: 'bar.js',
+            name: null },
+          { generated: { line: 3, column: 0 },
+            original: { line: 3, column: 0 },
+            source: 'bar.js',
             name: null } ]      
         , 'generates correct mappings'
     )
     t.deepEqual(
         decode(gen.base64Encode()) 
-      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":"AAAA,ACAA;ADCA,ACAA;ADCA;AACA"}'
+      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":"AAAA,ACAA;ADCA,ACAA;ADCA,ACAA;ADCA;AACA"}'
       , 'encodes generated mappings'
     )
     t.equal(
         gen.inlineMappingUrl()
-      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsQUNBQTtBRENBLEFDQUE7QURDQTtBQUNBIn0='
+      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsQUNBQTtBRENBLEFDQUE7QURDQSxBQ0FBO0FEQ0E7QUFDQSJ9'
       , 'returns correct inline mapping url'
+    )
+  })
+
+  t.test('one line source', function (t) {
+    var gen = generator().addGeneratedMappings('one-liner.js',  'console.log("line one");')
+    t.deepEqual(
+        gen._mappings()
+      , [ { generated: { line: 1, column: 0 },
+            original: { line: 1, column: 0 },
+            source: 'one-liner.js',
+            name: null } ]      
+    , 'generates correct mappings'
     )
   })
 
@@ -87,6 +148,10 @@ test('generated mappings', function (t) {
             original: { line: 4, column: 0 },
             source: 'foo.js',
             name: null },
+          { generated: { line: 25, column: 0 },
+            original: { line: 5, column: 0 },
+            source: 'foo.js',
+            name: null },
           { generated: { line: 24, column: 22 },
             original: { line: 1, column: 0 },
             source: 'bar.js',
@@ -94,12 +159,16 @@ test('generated mappings', function (t) {
           { generated: { line: 25, column: 22 },
             original: { line: 2, column: 0 },
             source: 'bar.js',
+            name: null },
+          { generated: { line: 26, column: 22 },
+            original: { line: 3, column: 0 },
+            source: 'bar.js',
             name: null } ]        
       , 'generates correct mappings'
     )
     t.equal(
         decode(gen.base64Encode())
-      , '{\"version\":3,\"file\":\"\",\"sources\":[\"foo.js\",\"bar.js\"],\"names\":[],\"mappings\":\";;;;;;;;;;;;;;;;;;;;AAAA;AACA;AACA;AACA,sBCHA;sBACA\"}'
+      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;AAAA;AACA;AACA;AACA,sBCHA;ADIA,sBCHA;sBACA"}'
       , 'encodes generated mappings with offset'
     )
   })

@@ -5,11 +5,11 @@ function offsetMapping(mapping, offset) {
   return { line: offset.line + mapping.line, column: offset.column + mapping.column };
 }
 
-function linesIn(src) {
+function newlinesIn(src) {
   if (!src) return 0;
-  var newLines = src.match(/\n/g);
+  var newlines = src.match(/\n/g);
 
-  return newLines ? newLines.length : 0;
+  return newlines ? newlines.length : 0;
 }
  
 function Generator(opts) {
@@ -57,7 +57,7 @@ Generator.prototype.addMappings = function (sourceFile, mappings, offset) {
 Generator.prototype.addGeneratedMappings = function (sourceFile, source, offset) {
   var mappings = [];
 
-  for (var line = 1; line <= linesIn(source); line++) {
+  for (var line = 1; line <= newlinesIn(source) + 1; line++) {
     var location = { line: line, column: 0 };
     mappings.push({ original: location, generated: location });
   }
