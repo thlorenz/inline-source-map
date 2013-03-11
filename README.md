@@ -50,6 +50,21 @@ inline mapping url: //@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
  */
 ```
 
+### addSourceContent(sourceFile, sourceContent)
+
+```
+/**
+ * Adds source content for the given source file.
+ * 
+ * @name addSourceContent
+ * @function
+ * @param sourceFile {String} The source file for which a mapping is included
+ * @param sourceContent {String} The content of the source file
+ * @return {Object} The generator to allow chaining
+ */
+```
+
+
 ### base64Encode()
 
 ```
@@ -59,6 +74,8 @@ inline mapping url: //@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
  * @return {String} bas64 encoded representation of the added mappings
  */
 ```
+
+If source contents were added, this will be included in the encoded mappings.
 
 ### inlineMappingUrl()
 

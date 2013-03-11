@@ -15,6 +15,7 @@ function newlinesIn(src) {
 function Generator(opts) {
   opts = opts || {};
   this.generator = new SourceMapGenerator({ file: opts.file || '', sourceRoot: opts.sourceRoot || '' });
+  this.sourceContent = undefined;
 }
 
 /**
@@ -66,12 +67,27 @@ Generator.prototype.addGeneratedMappings = function (sourceFile, source, offset)
 };
 
 /**
+ * Adds source content for the given source file.
+ * 
+ * @name addSourceContent
+ * @function
+ * @param sourceFile {String} The source file for which a mapping is included
+ * @param sourceContent {String} The content of the source file
+ * @return {Object} The generator to allow chaining
+ */
+Generator.prototype.addSourceContent = function (sourceFile, sourceContent) {
+  this.sourceContent = this.sourceContent || {};
+  this.sourceContent[sourceFile] = sourceContent;
+  return this;
+};
+
+/**
  * @name base64Encode
  * @function
  * @return {String} bas64 encoded representation of the added mappings
  */
 Generator.prototype.base64Encode = function () {
-  var map = this.generator.toString();
+  var map = this.toString();
   return new Buffer(map).toString('base64');
 };
 
@@ -84,8 +100,25 @@ Generator.prototype.inlineMappingUrl = function () {
   return '//@ sourceMappingURL=data:application/json;base64,' + this.base64Encode();
 };
 
+Generator.prototype.toJSON = function () {
+  var map = this.generator.toJSON();
+  if (!this.sourceContent) return map;
+
+  var toSourceContent = (function (s) { return this.sourceContent[s] || null; }).bind(this);
+  map.sourceContent = map.sources.map(toSourceContent);
+  return map;
+};
+
+Generator.prototype.toString = function () {
+  return JSON.stringify(this);
+};
+
 Generator.prototype._mappings = function () {
   return this.generator._mappings;
+};
+
+Generator.prototype.gen = function () {
+  return this.generator;
 };
 
 module.exports = function (opts) { return new Generator(opts); };
