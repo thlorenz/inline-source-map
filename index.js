@@ -56,9 +56,10 @@ Generator.prototype.addMappings = function (sourceFile, mappings, offset) {
  * @return {Object} the generator to allow chaining
  */
 Generator.prototype.addGeneratedMappings = function (sourceFile, source, offset) {
-  var mappings = [];
+  var mappings = []
+    , linesToGenerate = newlinesIn(source) + 1;
 
-  for (var line = 1; line <= newlinesIn(source) + 1; line++) {
+  for (var line = 1; line <= linesToGenerate; line++) {
     var location = { line: line, column: 0 };
     mappings.push({ original: location, generated: location });
   }
