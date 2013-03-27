@@ -1,6 +1,6 @@
 {
   "name": "inline-source-map",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Adds source mappings and base64 encodes them, so they can be inlined in your generated file.",
   "main": "inline-source-map.js",
   "scripts": {
