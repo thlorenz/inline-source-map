@@ -174,11 +174,20 @@ test('generated mappings', function (t) {
   })
 })
 
-test('given mappings', function (t) {
+test('given mappings, with one having no original', function (t) {
   t.test('no offset', function (t) {
     var gen = generator()
       .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }])
-      .addMappings('bar.js', [{ original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }])
+
+      // This addresses an edgecase in which a transpiler generates mappings but doesn't include the original position.
+      // If we set source to sourceFile (as usual) in that case, the mappings are considered invalid by the source-map module's
+      // SourceMapGenerator. Keeping source undefined fixes this problem.
+      // Raised issue: https://github.com/thlorenz/inline-source-map/issues/2
+      // Validate function: https://github.com/mozilla/source-map/blob/a3372ea78e662582087dd25ebda999c06424e047/lib/source-map/source-map-generator.js#L232
+      .addMappings('bar.js', [
+            { original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }
+          , { generated: { line: 8, column: 30 } }
+      ])
 
     t.deepEqual(
         gen._mappings()
@@ -189,17 +198,21 @@ test('given mappings', function (t) {
           { generated: { line: 7, column: 20 },
             original: { line: 6, column: 0 },
             source: 'bar.js',
+            name: null },
+          { generated: { line: 8, column: 30 },
+            original: undefined,
+            source: undefined,
             name: null } ]
       , 'adds correct mappings'
     )
     t.deepEqual(
         decode(gen.base64Encode()) 
-      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":";;;;UACG;;oBCIH"}'
+      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":";;;;UACG;;oBCIH;8B"}'
       , 'encodes generated mappings'
     )
     t.equal(
         gen.inlineMappingUrl()
-      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztVQUNHOztvQkNJSCJ9'
+      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztVQUNHOztvQkNJSDs4QiJ9'
       , 'returns correct inline mapping url'
     )
   })
@@ -207,7 +220,7 @@ test('given mappings', function (t) {
   t.test('with offset', function (t) {
     var gen = generator()
       .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }], { line: 5 })
-      .addMappings('bar.js', [{ original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }], { line: 9, column: 3 })
+      .addMappings('bar.js', [{ original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }, { generated: { line: 8, column: 30 } }], { line: 9, column: 3 })
 
     t.deepEqual(
         gen._mappings()
@@ -218,12 +231,16 @@ test('given mappings', function (t) {
           { generated: { line: 16, column: 23 },
             original: { line: 6, column: 0 },
             source: 'bar.js',
+            name: null },
+          { generated: { line: 17, column: 33 },
+            original: undefined,
+            source: undefined,
             name: null } ]     
       , 'adds correct mappings'
     )
     t.equal(
         decode(gen.base64Encode())
-      , '{\"version\":3,\"file\":\"\",\"sources\":[\"foo.js\",\"bar.js\"],\"names\":[],\"mappings\":\";;;;;;;;;UACG;;;;;;uBCIH\"}'
+      , '{\"version\":3,\"file\":\"\",\"sources\":[\"foo.js\",\"bar.js\"],\"names\":[],\"mappings\":\";;;;;;;;;UACG;;;;;;uBCIH;iC\"}'
       , 'encodes mappings with offset'
     )
   })
