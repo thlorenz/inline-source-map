@@ -37,7 +37,7 @@ Generator.prototype.addMappings = function (sourceFile, mappings, offset) {
 
   mappings.forEach(function (m) {
     generator.addMapping({
-        source    :  sourceFile
+        source    :  m.original ? sourceFile : undefined
       , original  :  m.original
       , generated :  offsetMapping(m.generated, offset)
     });
