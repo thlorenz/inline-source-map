@@ -74,7 +74,7 @@ test('generated mappings', function (t) {
             "bar.js"
           ],
           "names": [],
-          "mappings": "AAAA,ACAA;ADCA,ACAA;ADCA,ACAA;ADCA;AACA",
+          "mappings": "ACAA,ADAA;ACCA,ADAA;ACCA,ADAA;AACA;AACA",
           "sourcesContent": [
             "function foo() {\n  var hello = 'hello';\n  var world = 'world';\n  console.log('%s %s', hello, world);\n}",
             "function bar() {\n  console.log('yes?');\n}"
@@ -85,12 +85,12 @@ test('generated mappings', function (t) {
 
     t.deepEqual(
         decode(gen.base64Encode()) 
-      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":"AAAA,ACAA;ADCA,ACAA;ADCA,ACAA;ADCA;AACA","sourcesContent":["function foo() {\\n  var hello = \'hello\';\\n  var world = \'world\';\\n  console.log(\'%s %s\', hello, world);\\n}","function bar() {\\n  console.log(\'yes?\');\\n}"]}'
+      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":"ACAA,ADAA;ACCA,ADAA;ACCA,ADAA;AACA;AACA","sourcesContent":["function foo() {\\n  var hello = \'hello\';\\n  var world = \'world\';\\n  console.log(\'%s %s\', hello, world);\\n}","function bar() {\\n  console.log(\'yes?\');\\n}"]}'
       , 'encodes generated mappings including source content'
     )
     t.equal(
         gen.inlineMappingUrl()
-      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsQUNBQTtBRENBLEFDQUE7QURDQSxBQ0FBO0FEQ0E7QUFDQSIsInNvdXJjZXNDb250ZW50IjpbImZ1bmN0aW9uIGZvbygpIHtcbiAgdmFyIGhlbGxvID0gJ2hlbGxvJztcbiAgdmFyIHdvcmxkID0gJ3dvcmxkJztcbiAgY29uc29sZS5sb2coJyVzICVzJywgaGVsbG8sIHdvcmxkKTtcbn0iLCJmdW5jdGlvbiBiYXIoKSB7XG4gIGNvbnNvbGUubG9nKCd5ZXM/Jyk7XG59Il19'
+      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFDQUEsQURBQTtBQ0NBLEFEQUE7QUNDQSxBREFBO0FBQ0E7QUFDQSIsInNvdXJjZXNDb250ZW50IjpbImZ1bmN0aW9uIGZvbygpIHtcbiAgdmFyIGhlbGxvID0gJ2hlbGxvJztcbiAgdmFyIHdvcmxkID0gJ3dvcmxkJztcbiAgY29uc29sZS5sb2coJyVzICVzJywgaGVsbG8sIHdvcmxkKTtcbn0iLCJmdW5jdGlvbiBiYXIoKSB7XG4gIGNvbnNvbGUubG9nKCd5ZXM/Jyk7XG59Il19'
       , 'returns correct inline mapping url including source content'
     )
     t.end()
@@ -111,7 +111,7 @@ test('generated mappings', function (t) {
             "bar.js"
           ],
           "names": [],
-          "mappings": "AAAA,ACAA;ADCA,ACAA;ADCA,ACAA;ADCA;AACA",
+          "mappings": "ACAA,ADAA;ACCA,ADAA;ACCA,ADAA;AACA;AACA",
           "sourcesContent": [ null, "function bar() {\n  console.log('yes?');\n}" ]
         }
       , 'includes source content for the file with source content and [null] for the other file'
@@ -119,12 +119,12 @@ test('generated mappings', function (t) {
 
     t.deepEqual(
         decode(gen.base64Encode()) 
-      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":"AAAA,ACAA;ADCA,ACAA;ADCA,ACAA;ADCA;AACA","sourcesContent":[null,"function bar() {\\n  console.log(\'yes?\');\\n}"]}'
+      , '{"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":"ACAA,ADAA;ACCA,ADAA;ACCA,ADAA;AACA;AACA","sourcesContent":[null,"function bar() {\\n  console.log(\'yes?\');\\n}"]}'
       , 'encodes generated mappings including source content'
     )
     t.equal(
         gen.inlineMappingUrl()
-      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsQUNBQTtBRENBLEFDQUE7QURDQSxBQ0FBO0FEQ0E7QUFDQSIsInNvdXJjZXNDb250ZW50IjpbbnVsbCwiZnVuY3Rpb24gYmFyKCkge1xuICBjb25zb2xlLmxvZygneWVzPycpO1xufSJdfQ=='
+      , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFDQUEsQURBQTtBQ0NBLEFEQUE7QUNDQSxBREFBO0FBQ0E7QUFDQSIsInNvdXJjZXNDb250ZW50IjpbbnVsbCwiZnVuY3Rpb24gYmFyKCkge1xuICBjb25zb2xlLmxvZygneWVzPycpO1xufSJdfQ=='
       , 'returns correct inline mapping url including source content'
     )
     t.end()
