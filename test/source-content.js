@@ -1,7 +1,7 @@
 'use strict';
 /*jshint asi: true*/
 
-var test = require('trap').test
+var test = require('tap').test
 var generator = require('..');
 
 var foo = '' + function foo () {
@@ -55,6 +55,7 @@ test('generated mappings', function (t) {
       , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZXNDb250ZW50IjpbImZ1bmN0aW9uIGZvbygpIHtcbiAgdmFyIGhlbGxvID0gJ2hlbGxvJztcbiAgdmFyIHdvcmxkID0gJ3dvcmxkJztcbiAgY29uc29sZS5sb2coJyVzICVzJywgaGVsbG8sIHdvcmxkKTtcbn0iXX0='
       , 'returns correct inline mapping url including source content'
     )
+    t.end()
   })
 
   t.test('two files with source content', function (t) {
@@ -92,6 +93,7 @@ test('generated mappings', function (t) {
       , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsQUNBQTtBRENBLEFDQUE7QURDQSxBQ0FBO0FEQ0E7QUFDQSIsInNvdXJjZXNDb250ZW50IjpbImZ1bmN0aW9uIGZvbygpIHtcbiAgdmFyIGhlbGxvID0gJ2hlbGxvJztcbiAgdmFyIHdvcmxkID0gJ3dvcmxkJztcbiAgY29uc29sZS5sb2coJyVzICVzJywgaGVsbG8sIHdvcmxkKTtcbn0iLCJmdW5jdGlvbiBiYXIoKSB7XG4gIGNvbnNvbGUubG9nKCd5ZXM/Jyk7XG59Il19'
       , 'returns correct inline mapping url including source content'
     )
+    t.end()
   })
 
   t.test('two files, only one with source content', function (t) {
@@ -125,5 +127,6 @@ test('generated mappings', function (t) {
       , '//@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsQUNBQTtBRENBLEFDQUE7QURDQSxBQ0FBO0FEQ0E7QUFDQSIsInNvdXJjZXNDb250ZW50IjpbbnVsbCwiZnVuY3Rpb24gYmFyKCkge1xuICBjb25zb2xlLmxvZygneWVzPycpO1xufSJdfQ=='
       , 'returns correct inline mapping url including source content'
     )
+    t.end()
   })
 })

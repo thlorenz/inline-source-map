@@ -4,7 +4,7 @@
   "description": "Adds source mappings and base64 encodes them, so they can be inlined in your generated file.",
   "main": "index.js",
   "scripts": {
-    "test": "node-trap ./test/*.js && node-trap test/source-content.js"
+    "test": "tap ./test/*.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
     "source-map": "~0.1.9"
   },
   "devDependencies": {
-    "trap": "~0.4.2"
+    "tap": "~0.4.3"
   },
   "keywords": [
     "source",
