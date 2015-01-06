@@ -5,7 +5,7 @@ Adds source mappings and base64 encodes them, so they can be inlined in your gen
 ```js
 var generator = require('inline-source-map');
 
-var gen = generator()
+var gen = generator({charset: 'utf-8'}) //default charset is utf-8, you can change it for yourself
   .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }], { line: 5 })
   .addGeneratedMappings('bar.js', 'var a = 2;\nconsole.log(a)', { line: 23, column: 22 });
 
@@ -15,7 +15,7 @@ console.log('inline mapping url:', gen.inlineMappingUrl());
 
 ```
 base64 mapping: eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O1VBQ0c7Ozs7Ozs7Ozs7Ozs7O3NCQ0RIO3NCQUNBIn0=
-inline mapping url: //@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O1VBQ0c7Ozs7Ozs7Ozs7Ozs7O3NCQ0RIO3NCQUNBIn0=
+inline mapping url: //@ sourceMappingURL=data:application/json;charset:utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiIiwic291cmNlcyI6WyJmb28uanMiLCJiYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O1VBQ0c7Ozs7Ozs7Ozs7Ozs7O3NCQ0RIO3NCQUNBIn0=
 ```
 
 ## API
@@ -24,7 +24,7 @@ inline mapping url: //@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 
 ```
 /**
- * Adds the given mappings to the generator and offsets them if offset is given 
+ * Adds the given mappings to the generator and offsets them if offset is given
  *
  * @name addMappings
  * @function
@@ -55,7 +55,7 @@ inline mapping url: //@ sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 ```
 /**
  * Adds source content for the given source file.
- * 
+ *
  * @name addSourceContent
  * @function
  * @param sourceFile {String} The source file for which a mapping is included
@@ -83,6 +83,6 @@ If source contents were added, this will be included in the encoded mappings.
 /**
  * @name inlineMappingUrl
  * @function
- * @return {String} comment with base64 encoded representation of the added mappings. Can be inlined at the end of the generated file. 
+ * @return {String} comment with base64 encoded representation of the added mappings. Can be inlined at the end of the generated file.
  */
 ```
