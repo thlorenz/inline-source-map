@@ -11,15 +11,16 @@ function newlinesIn(src) {
 
   return newlines ? newlines.length : 0;
 }
- 
+
 function Generator(opts) {
   opts = opts || {};
   this.generator = new SourceMapGenerator({ file: opts.file || '', sourceRoot: opts.sourceRoot || '' });
   this.sourcesContent = undefined;
+  this.opts = opts;
 }
 
 /**
- * Adds the given mappings to the generator and offsets them if offset is given 
+ * Adds the given mappings to the generator and offsets them if offset is given
  *
  * @name addMappings
  * @function
@@ -28,8 +29,8 @@ function Generator(opts) {
  * @param offset {Object} offset to apply to each mapping. Has the form { line: _, column: _ }
  * @return {Object} the generator to allow chaining
  */
-Generator.prototype.addMappings = function (sourceFile, mappings, offset) { 
-  var generator = this.generator; 
+Generator.prototype.addMappings = function (sourceFile, mappings, offset) {
+  var generator = this.generator;
 
   offset = offset || {};
   offset.line = offset.hasOwnProperty('line') ? offset.line : 0;
@@ -70,7 +71,7 @@ Generator.prototype.addGeneratedMappings = function (sourceFile, source, offset)
 
 /**
  * Adds source content for the given source file.
- * 
+ *
  * @name addSourceContent
  * @function
  * @param sourceFile {String} The source file for which a mapping is included
@@ -96,10 +97,11 @@ Generator.prototype.base64Encode = function () {
 /**
  * @name inlineMappingUrl
  * @function
- * @return {String} comment with base64 encoded representation of the added mappings. Can be inlined at the end of the generated file. 
+ * @return {String} comment with base64 encoded representation of the added mappings. Can be inlined at the end of the generated file.
  */
 Generator.prototype.inlineMappingUrl = function () {
-  return '//# sourceMappingURL=data:application/json;base64,' + this.base64Encode();
+  var charset = this.opts.charset || 'utf-8';
+  return '//# sourceMappingURL=data:application/json;charset:'+charset+';base64,' + this.base64Encode();
 };
 
 Generator.prototype.toJSON = function () {
