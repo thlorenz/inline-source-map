@@ -318,7 +318,7 @@ test('inline mapping url with charset opt', function(t){
   t.test('set inline mapping url charset to gbk', function(t){
     var gen = generator({charset: 'gbk'})
                 .addGeneratedMappings('foo.js', foo);
-    t.deepEqual(
+    t.equal(
       gen.inlineMappingUrl(),
       '//# sourceMappingURL=data:application/json;charset:gbk;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwiZmlsZSI6IiIsInNvdXJjZVJvb3QiOiIifQ==',
       'charset set to gbk'
@@ -331,7 +331,7 @@ test('inline mapping url with charset opt', function(t){
     var gen = generator()
               .addGeneratedMappings('foo.js', foo);
 
-    t.deepEqual(
+    t.equal(
       gen.inlineMappingUrl(),
       '//# sourceMappingURL=data:application/json;charset:utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwiZmlsZSI6IiIsInNvdXJjZVJvb3QiOiIifQ==',
       'charset default to utf-8'

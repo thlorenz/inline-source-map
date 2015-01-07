@@ -46,7 +46,7 @@ test('generated mappings', function (t) {
       , 'includes source content'
     )
 
-    t.deepEqual(
+    t.equal(
         decode(gen.base64Encode())
       , '{"version":3,"sources":["foo.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA","file":"","sourceRoot":"","sourcesContent":["function foo() {\\n  var hello = \'hello\';\\n  var world = \'world\';\\n  console.log(\'%s %s\', hello, world);\\n}"]}'
       , 'encodes generated mappings including source content'
