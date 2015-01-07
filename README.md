@@ -24,7 +24,7 @@ inline mapping url: //@ sourceMappingURL=data:application/json;charset:utf-8;bas
 
 ```
 /**
- * Adds the given mappings to the generator and offsets them if offset is given
+ * Adds the given mappings to the generator and offsets them if offset is given 
  *
  * @name addMappings
  * @function
@@ -55,7 +55,7 @@ inline mapping url: //@ sourceMappingURL=data:application/json;charset:utf-8;bas
 ```
 /**
  * Adds source content for the given source file.
- *
+ * 
  * @name addSourceContent
  * @function
  * @param sourceFile {String} The source file for which a mapping is included
@@ -83,6 +83,6 @@ If source contents were added, this will be included in the encoded mappings.
 /**
  * @name inlineMappingUrl
  * @function
- * @return {String} comment with base64 encoded representation of the added mappings. Can be inlined at the end of the generated file.
+ * @return {String} comment with base64 encoded representation of the added mappings. Can be inlined at the end of the generated file. 
  */
 ```

@@ -16,7 +16,7 @@ var bar = '' + function bar () {
 
 function decode(base64) {
   return new Buffer(base64, 'base64').toString();
-}
+} 
 
 function inspect(obj, depth) {
   console.log(require('util').inspect(obj, false, depth || 5, true));

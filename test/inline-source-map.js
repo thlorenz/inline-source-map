@@ -16,7 +16,7 @@ var bar = '' + function bar () {
 
 function decode(base64) {
   return new Buffer(base64, 'base64').toString();
-}
+} 
 
 function inspect(obj, depth) {
   console.error(require('util').inspect(obj, false, depth || 5, true));
@@ -59,7 +59,7 @@ test('generated mappings', function (t) {
           originalLine: 5,
           originalColumn: 0,
           source: 'foo.js',
-          name: null } ]
+          name: null } ]      
       , 'generates correct mappings'
     )
 
@@ -130,7 +130,7 @@ test('generated mappings', function (t) {
             originalLine: 3,
             originalColumn: 0,
             source: 'bar.js',
-            name: null } ]
+            name: null } ]      
         , 'generates correct mappings'
     )
     t.deepEqual(
@@ -155,7 +155,7 @@ test('generated mappings', function (t) {
             originalLine: 1,
             originalColumn: 0,
             source: 'one-liner.js',
-            name: null } ]
+            name: null } ]      
     , 'generates correct mappings'
     )
     t.end()
@@ -215,7 +215,7 @@ test('generated mappings', function (t) {
             originalLine: 3,
             originalColumn: 0,
             source: 'bar.js',
-            name: null } ]
+            name: null } ]        
       , 'generates correct mappings'
     )
 
@@ -302,7 +302,7 @@ test('given mappings, with one having no original', function (t) {
             originalLine: false,
             originalColumn: false,
             source: undefined,
-            name: null } ]
+            name: null } ]     
       , 'adds correct mappings'
     )
     t.deepEqual(
