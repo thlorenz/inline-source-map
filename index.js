@@ -101,7 +101,7 @@ Generator.prototype.base64Encode = function () {
  */
 Generator.prototype.inlineMappingUrl = function () {
   var charset = this.opts.charset || 'utf-8';
-  return '//# sourceMappingURL=data:application/json;charset:'+charset+';base64,' + this.base64Encode();
+  return '//# sourceMappingURL=data:application/json;charset:' + charset + ';base64,' + this.base64Encode();
 };
 
 Generator.prototype.toJSON = function () {
