@@ -1,4 +1,4 @@
-# inline-source-map [![build status](https://secure.travis-ci.org/thlorenz/inline-source-map.png)](http://travis-ci.org/thlorenz/inline-source-map)
+# inline-source-map [![build status](https://secure.travis-ci.org/thlorenz/inline-source-map.svg)](http://travis-ci.org/thlorenz/inline-source-map)
 
 Adds source mappings and base64 encodes them, so they can be inlined in your generated file.
 
