@@ -3,6 +3,9 @@
   "version": "0.6.0",
   "description": "Adds source mappings and base64 encodes them, so they can be inlined in your generated file.",
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test-main": "tap test/*.js",
     "test-0.8": "nave use 0.8 npm run test-main",
