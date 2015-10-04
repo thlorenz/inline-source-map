@@ -132,4 +132,12 @@ test('generated mappings', function (t) {
     )
     t.end()
   })
+
+  t.test('one file with empty source', function (t) {
+    var gen = generator()
+      .addGeneratedMappings('empty.js', '')
+      .addSourceContent('empty.js', '')
+    t.deepEqual(gen.toJSON()["sourcesContent"], [""])
+    t.end()
+  });
 })
