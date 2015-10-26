@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/thlorenz/inline-source-map",
   "dependencies": {
-    "source-map": "~0.4.0"
+    "source-map": "~0.5.3"
   },
   "devDependencies": {
     "tap": "~0.7.0",
