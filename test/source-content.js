@@ -140,4 +140,5 @@ test('generated mappings', function (t) {
     t.deepEqual(gen.toJSON()["sourcesContent"], [""])
     t.end()
   });
+  t.end();
 })

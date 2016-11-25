@@ -226,6 +226,7 @@ test('generated mappings', function (t) {
     )
     t.end()
   })
+  t.end()
 })
 
 test('given mappings, with one having no original', function (t) {
@@ -312,6 +313,7 @@ test('given mappings, with one having no original', function (t) {
     )
     t.end()
   })
+  t.end()
 });
 
 test('inline mapping url with charset opt', function(t){
@@ -339,4 +341,5 @@ test('inline mapping url with charset opt', function(t){
 
     t.end();
   });
+  t.end();
 });
