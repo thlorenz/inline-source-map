@@ -42,6 +42,7 @@ Generator.prototype.addMappings = function (sourceFile, mappings, offset) {
         source    :  m.original ? sourceFile : undefined
       , original  :  m.original
       , generated :  offsetMapping(m.generated, offset)
+      , name      :  m.name
     });
   });
   return this;
