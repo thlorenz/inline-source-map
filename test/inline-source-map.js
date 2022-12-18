@@ -1,7 +1,7 @@
 'use strict';
 /*jshint asi: true*/
 
-var test = require('tap').test
+var tap = require('tap')
 var generator = require('..');
 
 var foo = '' + function foo () {
@@ -15,20 +15,20 @@ var bar = '' + function bar () {
 }
 
 function decode(base64) {
-  return new Buffer(base64, 'base64').toString();
+  return Buffer.from(base64, 'base64').toString();
 } 
 
 function inspect(obj, depth) {
   console.error(require('util').inspect(obj, false, depth || 5, true));
 }
 
-test('generated mappings', function (t) {
+tap.pass('generated mappings', function (t) {
 
   t.test('one file no offset', function (t) {
     var gen = generator()
       .addGeneratedMappings('foo.js', foo)
 
-    t.deepEqual(
+    t.same(
       gen._mappings()
     , [ { generatedLine: 1,
           generatedColumn: 0,
@@ -63,7 +63,7 @@ test('generated mappings', function (t) {
       , 'generates correct mappings'
     )
 
-    t.deepEqual(
+    t.same(
         JSON.parse(decode(gen.base64Encode()))
       , {"version":3,"file":"","sources":["foo.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA","sourceRoot":""}
       , 'encodes generated mappings'
@@ -81,7 +81,7 @@ test('generated mappings', function (t) {
       .addGeneratedMappings('foo.js', foo)
       .addGeneratedMappings('bar.js', bar)
 
-    t.deepEqual(
+    t.same(
         gen._mappings()
       , [ { generatedLine: 1,
             generatedColumn: 0,
@@ -133,7 +133,7 @@ test('generated mappings', function (t) {
             name: null } ]      
         , 'generates correct mappings'
     )
-    t.deepEqual(
+    t.same(
         JSON.parse(decode(gen.base64Encode()))
       , {"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":"ACAA,ADAA;ACCA,ADAA;ACCA,ADAA;AACA;AACA","sourceRoot": ""}
       , 'encodes generated mappings'
@@ -148,7 +148,7 @@ test('generated mappings', function (t) {
 
   t.test('one line source', function (t) {
     var gen = generator().addGeneratedMappings('one-liner.js',  'console.log("line one");')
-    t.deepEqual(
+    t.same(
         gen._mappings()
       , [ { generatedLine: 1,
             generatedColumn: 0,
@@ -166,7 +166,7 @@ test('generated mappings', function (t) {
       .addGeneratedMappings('foo.js', foo, { line: 20 })
       .addGeneratedMappings('bar.js', bar, { line: 23, column: 22 })
 
-    t.deepEqual(
+    t.same(
         gen._mappings()
       , [ { generatedLine: 21,
             generatedColumn: 0,
@@ -219,7 +219,7 @@ test('generated mappings', function (t) {
       , 'generates correct mappings'
     )
 
-    t.deepEqual(
+    t.same(
         JSON.parse(decode(gen.base64Encode()))
       , {"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;AAAA;AACA;AACA;AACA,sBCHA;ADIA,sBCHA;sBACA", "sourceRoot": ""}
       , 'encodes generated mappings with offset'
@@ -228,7 +228,7 @@ test('generated mappings', function (t) {
   })
 })
 
-test('given mappings, with one having no original', function (t) {
+tap.pass('given mappings, with one having no original', function (t) {
   t.test('no offset', function (t) {
     var gen = generator()
       .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }])
@@ -243,7 +243,7 @@ test('given mappings, with one having no original', function (t) {
           , { generated: { line: 8, column: 30 } }
       ])
 
-    t.deepEqual(
+    t.same(
         gen._mappings()
       , [ { generatedLine: 5,
             generatedColumn: 10,
@@ -265,7 +265,7 @@ test('given mappings, with one having no original', function (t) {
             name: null } ]
       , 'adds correct mappings'
     )
-    t.deepEqual(
+    t.same(
         JSON.parse(decode(gen.base64Encode()))
       , {"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":";;;;UACG;;oBCIH;8B", sourceRoot: ""}
       , 'encodes generated mappings'
@@ -283,7 +283,7 @@ test('given mappings, with one having no original', function (t) {
       .addMappings('foo.js', [{ original: { line: 2, column: 3 } , generated: { line: 5, column: 10 } }], { line: 5 })
       .addMappings('bar.js', [{ original: { line: 6, column: 0 } , generated: { line: 7, column: 20 } }, { generated: { line: 8, column: 30 } }], { line: 9, column: 3 })
 
-    t.deepEqual(
+    t.same(
         gen._mappings()
       , [ { generatedLine: 10,
             generatedColumn: 10,
@@ -305,7 +305,7 @@ test('given mappings, with one having no original', function (t) {
             name: null } ]     
       , 'adds correct mappings'
     )
-    t.deepEqual(
+    t.same(
         JSON.parse(decode(gen.base64Encode()))
       , {"version":3,"file":"","sources":["foo.js","bar.js"],"names":[],"mappings":";;;;;;;;;UACG;;;;;;uBCIH;iC", sourceRoot: ""}
       , 'encodes mappings with offset'
@@ -314,7 +314,7 @@ test('given mappings, with one having no original', function (t) {
   })
 });
 
-test('inline mapping url with charset opt', function(t){
+tap.pass('inline mapping url with charset opt', function(t){
   t.test('set inline mapping url charset to gbk', function(t){
     var gen = generator({charset: 'gbk'})
                 .addGeneratedMappings('foo.js', foo);
