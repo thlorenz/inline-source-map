@@ -32,7 +32,7 @@ test('generated mappings', function (t) {
       .addGeneratedMappings('foo.js', foo)
       .addSourceContent('foo.js', foo)
 
-    t.deepEqual(
+    t.same(
         gen.toJSON()
       , { "version": 3,
           "file": "",
@@ -69,7 +69,7 @@ test('generated mappings', function (t) {
       .addGeneratedMappings('bar.js', bar)
       .addSourceContent('bar.js', bar)
 
-    t.deepEqual(
+    t.same(
         gen.toJSON()
       ,  { "version": 3,
           "file": "",
@@ -88,7 +88,7 @@ test('generated mappings', function (t) {
       , 'includes source content for both files'
     )
 
-    t.deepEqual(
+    t.same(
         decode(gen.base64Encode())
       , '{"version":3,"sources":["foo.js","bar.js"],"names":[],"mappings":"ACAA,ADAA;ACCA,ADAA;ACCA,ADAA;AACA;AACA","file":"","sourceRoot":"","sourcesContent":["function foo() {\\n  var hello = \'hello\';\\n  var world = \'world\';\\n  console.log(\'%s %s\', hello, world);\\n}","function bar() {\\n  console.log(\'yes?\');\\n}"]}'
       , 'encodes generated mappings including source content'
@@ -107,7 +107,7 @@ test('generated mappings', function (t) {
       .addGeneratedMappings('bar.js', bar)
       .addSourceContent('bar.js', bar)
 
-    t.deepEqual(
+    t.same(
         gen.toJSON()
       ,  { "version": 3,
           "file": "",
@@ -123,7 +123,7 @@ test('generated mappings', function (t) {
       , 'includes source content for the file with source content and [null] for the other file'
     )
 
-    t.deepEqual(
+    t.same(
         decode(gen.base64Encode())
       , '{"version":3,"sources":["foo.js","bar.js"],"names":[],"mappings":"ACAA,ADAA;ACCA,ADAA;ACCA,ADAA;AACA;AACA","file":"","sourceRoot":"","sourcesContent":[null,"function bar() {\\n  console.log(\'yes?\');\\n}"]}'
       , 'encodes generated mappings including source content'
@@ -140,7 +140,8 @@ test('generated mappings', function (t) {
     var gen = generator()
       .addGeneratedMappings('empty.js', '')
       .addSourceContent('empty.js', '')
-    t.deepEqual(gen.toJSON()["sourcesContent"], [""])
+    t.same(gen.toJSON()["sourcesContent"], [""])
     t.end()
   });
+  t.end()
 })
