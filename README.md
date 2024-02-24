@@ -1,4 +1,4 @@
-# inline-source-map [![build status](https://github.com/thlorenz/inline-source-map/actions/workflows/node-test.js.yml/badge.svg)](https://github.com/thlorenz/inline-source-map/actions/workflows/node-test.js.yml/badge.svg)
+# inline-source-map [![Node.js CI](https://github.com/thlorenz/inline-source-map/actions/workflows/node-test.js.yml/badge.svg)](https://github.com/thlorenz/inline-source-map/actions/workflows/node-test.js.yml)
 
 Adds source mappings and base64 encodes them, so they can be inlined in your generated file.
 
