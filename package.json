@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/thlorenz/inline-source-map",
   "dependencies": {
-    "source-map": "~0.5.7 || ~0.6.1"
+    "source-map": "^0.7.4"
   },
   "devDependencies": {
     "tap": "~5.4.5",
@@ -37,7 +37,7 @@
     "url": "http://thlorenz.com"
   },
   "license": "MIT",
-  "engine": {
-    "node": ">=0.6"
+  "engines": {
+    "node": ">=10"
   }
 }
