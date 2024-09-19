@@ -91,10 +91,7 @@ Generator.prototype.addSourceContent = function (sourceFile, sourcesContent) {
  */
 Generator.prototype.base64Encode = function () {
   var map = this.toString();
-  if (Buffer.from) {
-    return Buffer.from(map).toString('base64');
-  }
-  return new Buffer(map).toString('base64');
+  return Buffer.from(map).toString('base64');
 };
 
 /**
