@@ -19,17 +19,12 @@ jobs:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         node-version:
-          - 0.10.x
-          - 0.12.x
-          - 4.x
-          - 6.x
-          - 8.x
-          # - 10.x
-          # - 12.x
-          # - 14.x
-          # - 16.x
-          # - 18.x
-          # - 20.x
+          - 10.x
+          - 12.x
+          - 14.x
+          - 16.x
+          - 18.x
+          - 20.x
 
     steps:
     - uses: actions/checkout@v4
